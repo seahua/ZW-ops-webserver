@@ -1,52 +1,23 @@
-{% extends "bootstrap/base.html" %}
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}站网运维平台{% endblock %}
 
-{% block navbar %}
-<div class="navbar navbar-inverse" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="/">Home</a>
-        </div>
-
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <!-- 网络设备下拉菜单 -->
-                <li role="presentation" class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                       网络设备 <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">func1</a></li>
-                        <li><a href="#">func2</a></li>
-                    </ul>
-                </li>
-                 <!-- 接收机下拉菜单 -->
-                <li role="presentation" class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                       接收机 <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">func1</a></li>
-                        <li><a href="#">func2</a></li>
-                    </ul>
-                </li>
-
-
-            </ul>
-
-
-            </ul>
-        </div>
-    </div>
-</div>
-
-{% endblock %}
-
 {% block content %}
 <div class="container">
-    <div class="page-header">
-        <h1>Hello, {{ name|upper }}!</h1>
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
     </div>
+    {% endfor %}
+
+    {% block page_content %}
+    <div class="page-header">
+        <h1>Hello, {% if name %}{{ name }}{% else %}Stranger{% endif %}!</h1>
+    </div>
+    {{ wtf.quick_form(form) }}
+
+    {% endblock %}
 </div>
 {% endblock %}
